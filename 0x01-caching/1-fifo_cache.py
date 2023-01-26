@@ -1,17 +1,16 @@
 #!/usr/bin/python3
 """ FIFO Caching """
 
-from base_caching import 
+from base_caching import BaseCaching
+
 
 class FIFOCache(BaseCaching):
     """ FIFO caching """
-
 
     def __init__(self):
         """ Constructor """
         super().__init__()
         self.queue = []
-
 
     def put(self, key, item):
         """ Puts item in cache """
@@ -23,7 +22,6 @@ class FIFOCache(BaseCaching):
         else:
             self.mv_last_list(key)
 
-
         self.cache_data[key] = item
 
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
@@ -32,7 +30,6 @@ class FIFOCache(BaseCaching):
                 self.queue.pop(0)
                 del self.cache_data[first]
                 print("DISCARD: {}".format(first))
-
 
     def get(self, key):
         """ Gets item from cache """
@@ -44,7 +41,6 @@ class FIFOCache(BaseCaching):
         if self.queue[length - 1] != item:
             self.queue.remove(item)
             self.queue.append(item)
-
 
     @staticmethod
     def get_first_list(array):
